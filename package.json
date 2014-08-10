@@ -1,0 +1,22 @@
+{
+  "name": "xrmnode",
+  "description": "",
+  "version": "0.0.1",
+  "main": "./index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bassetassen/xrmnode"
+  },
+  "author": "Sebastian Holager <bassetassen@hotmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bassetassen/xrmnode/issues"
+  },
+  "devDependencies": {
+    "mocha": "^1.21.4",
+    "sinon": "^1.10.3"
+  }
+}
