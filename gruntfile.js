@@ -2,7 +2,7 @@ module.exports = function(grunt) {
   "use strict";
 
   grunt.initConfig({
-    
+
     jshint: {
       options: {
         curly: true,
@@ -11,18 +11,24 @@ module.exports = function(grunt) {
         node: true,
         strict: true,
       },
-    	files: {
-        src: ['gruntfile.js', 'lib/**/*.js', 'test/**/*.js']
+      all: {
+      	files: {
+          src: ['gruntfile.js', 'lib/**/*.js', 'test/**/*.js']
+        }
       }
   	},
+
+
     mochaTest: {
-      test: {
-        options: {
-          reporter: 'spec'
-        },
+      options: {
+        reporter: 'spec'
+      },
+      unit: {
         src: ['test/**/*.js']
       }
     },
+
+
     watch: {
       scripts: {
         files: ['lib/**/*.js', 'test/**/*.js'],
