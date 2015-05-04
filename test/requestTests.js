@@ -82,7 +82,7 @@
 		});
 	});
 
-	describe('whoAmI resquest', function() {
+	describe('whoAmI request', function() {
 		describe('success', function() {
 			var data;
 
@@ -119,6 +119,35 @@
 
 			it('has organizationId', function() {
 				expect(data.Results.OrganizationId).to.equal('af9efde1-b654-4af7-a808-76a8d288bc50');
+			});
+		});
+	});
+
+	describe('create request', function() {
+		describe('success', function() {
+			var data;
+
+			beforeEach(function(done) {
+				var deferred = promise.pending();
+				var transportStub = sinon.stub(transport, "post");
+				transportStub.returns(deferred.promise);
+
+				deferred.resolve(soapResponse.createResponse());
+
+				var client = new Xrm({organizationUrl: 'https://test.crm4.dynamics.com'});
+				client.create('account', {name: 'a'})
+					.then(function(response) {
+						data = response;
+						done();
+					});
+			});
+
+			afterEach(function() {
+				transport.post.restore();
+			});
+
+			it('has id of created entity', function() {
+				expect(data).to.equal('b83a89a2-afb0-e411-9ebc-6c3be5be4fb8');
 			});
 		});
 	});

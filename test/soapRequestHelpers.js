@@ -115,7 +115,18 @@
 		return response;
 	};
 
+	var createResponse = function() {
+		return '<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">' +
+  				'<s:Body>' +
+    			'<CreateResponse xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">' +
+    			'<CreateResult>b83a89a2-afb0-e411-9ebc-6c3be5be4fb8</CreateResult>' +
+    			'</CreateResponse>' +
+  				'</s:Body>' +
+				'</s:Envelope>';
+	};
+
 	exports.authenticationFailureResponse = authenticationFailureResponse;
 	exports.validAutheticationResponse = validAutheticationResponse;
 	exports.whoAmIResponse = whoAmIResponse;
+	exports.createResponse = createResponse;
 })();
