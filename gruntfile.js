@@ -18,16 +18,14 @@ module.exports = function(grunt) {
       }
   	},
 
-
     mochaTest: {
       options: {
-        reporter: 'spec'
+        reporter: 'dot'
       },
       unit: {
         src: ['test/**/*.js']
       }
     },
-
 
     watch: {
       scripts: {
