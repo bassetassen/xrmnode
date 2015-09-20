@@ -1,21 +1,21 @@
 (function() {
 	'use strict';
 
-	var sinon = require("sinon");
-	var expect = require("chai").expect;
-	var transport = require("../lib/transport");
-	var Xrm = require("../lib/xrmnode");
+	var sinon = require('sinon');
+	var expect = require('chai').expect;
+	var transport = require('../lib/transport');
+	var Xrm = require('../lib/xrmnode');
 	var xpath = require('xpath');
 	var Dom = require('xmldom').DOMParser;
-	var promise = require("bluebird");
-	var soapResponse = require("./soapRequestHelpers");
+	var promise = require('bluebird');
+	var soapResponse = require('./soapRequestHelpers');
 
 	describe('soaprequest header', function() {
 		var self = this;
 		describe('success', function() {
 			beforeEach(function(done) {
 				self.deferred = promise.pending();
-				self.transportStub = sinon.stub(transport, "post");
+				self.transportStub = sinon.stub(transport, 'post');
 				self.transportStub.returns(self.deferred.promise);
 				self.clock = sinon.useFakeTimers(1408387200000); // 2014-08-18 20:40 GMT+1
 
@@ -37,47 +37,47 @@
 			});
 
 			it('post request to endpoint', function() {
-			 	expect(self.transportStub.getCall(1).args[0]).to.equal("https://test.crm4.dynamics.com/XRMServices/2011/Organization.svc");
+			 	expect(self.transportStub.getCall(1).args[0]).to.equal('https://test.crm4.dynamics.com/XRMServices/2011/Organization.svc');
 			});
 
 			it('has organizationEndpoint in header', function() {
-				var node = xpath.select("//*[local-name() = 'To']/text()", self.xmlBody);
+				var node = xpath.select('//*[local-name() = \'To\']/text()', self.xmlBody);
 				expect(node[0].nodeValue).to.equal('https://test.crm4.dynamics.com/XRMServices/2011/Organization.svc');
 			});
 
 			it('has messageid in header', function() {
-				var node = xpath.select("//*[local-name() = 'MessageID']/text()", self.xmlBody);
+				var node = xpath.select('//*[local-name() = \'MessageID\']/text()', self.xmlBody);
 				expect(node[0].nodeValue.length).to.equal(36);
 			});
 
 			it('sets created date to current time', function() {
-				var node = xpath.select("//*[local-name() = 'Created']/text()", self.xmlBody);
+				var node = xpath.select('//*[local-name() = \'Created\']/text()', self.xmlBody);
 				expect(node).to.have.length(1);
-				expect(node[0].nodeValue).to.equal("2014-08-18T18:40:00.000Z");
+				expect(node[0].nodeValue).to.equal('2014-08-18T18:40:00.000Z');
 			});
 
 			it('sets expiry date in one hour', function() {
-				var node = xpath.select("//*[local-name() = 'Expires']/text()", self.xmlBody);
+				var node = xpath.select('//*[local-name() = \'Expires\']/text()', self.xmlBody);
 				expect(node).to.have.length(1);
-				expect(node[0].nodeValue).to.equal("2014-08-18T19:40:00.000Z");
+				expect(node[0].nodeValue).to.equal('2014-08-18T19:40:00.000Z');
 			});
 
 			it('uses tokenone from authetication', function() {
-				var node = xpath.select("//*[local-name() = 'CipherValue']/text()", self.xmlBody);
+				var node = xpath.select('//*[local-name() = \'CipherValue\']/text()', self.xmlBody);
 
-				expect(node[0].nodeValue).to.equal("1");
+				expect(node[0].nodeValue).to.equal('1');
 			});
 
 			it('uses tokentwo from authetication', function() {
-				var node = xpath.select("//*[local-name() = 'CipherValue']/text()", self.xmlBody);
+				var node = xpath.select('//*[local-name() = \'CipherValue\']/text()', self.xmlBody);
 
-				expect(node[1].nodeValue).to.equal("2");
+				expect(node[1].nodeValue).to.equal('2');
 			});
 
 			it('uses keyIdentifier from authetication', function() {
-				var node = xpath.select("//*[local-name() = 'KeyIdentifier']/text()", self.xmlBody);
+				var node = xpath.select('//*[local-name() = \'KeyIdentifier\']/text()', self.xmlBody);
 
-				expect(node[0].nodeValue).to.equal("3");
+				expect(node[0].nodeValue).to.equal('3');
 			});
 		});
 	});
@@ -88,7 +88,7 @@
 
 			beforeEach(function(done) {
 				var deferred = promise.pending();
-				var transportStub = sinon.stub(transport, "post");
+				var transportStub = sinon.stub(transport, 'post');
 				transportStub.returns(deferred.promise);
 
 				deferred.resolve(soapResponse.whoAmIResponse());
@@ -129,7 +129,7 @@
 
 			beforeEach(function(done) {
 				var deferred = promise.pending();
-				var transportStub = sinon.stub(transport, "post");
+				var transportStub = sinon.stub(transport, 'post');
 				transportStub.returns(deferred.promise);
 
 				deferred.resolve(soapResponse.createResponse());

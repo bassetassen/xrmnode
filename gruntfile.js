@@ -1,15 +1,11 @@
 module.exports = function(grunt) {
-  "use strict";
+  'use strict';
 
   grunt.initConfig({
 
     jshint: {
       options: {
-        curly: true,
-        globals: {
-        },
-        node: true,
-        strict: true,
+        jshintrc: true
       },
       all: {
       	files: {
