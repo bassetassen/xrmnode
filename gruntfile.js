@@ -19,14 +19,17 @@ module.exports = function(grunt) {
         reporter: 'dot'
       },
       unit: {
-        src: ['test/**/*.js']
+        src: ['test/*.js']
+      },
+      integration: {
+          src: ['test/integration/*.js']
       }
     },
 
     watch: {
       scripts: {
-        files: ['lib/**/*.js', 'test/**/*.js'],
-        tasks: [ 'jshint', 'mochaTest' ]
+        files: ['lib/**/*.js', 'test/*.js'],
+        tasks: [ 'jshint', 'mochaTest:unit' ]
       }
     }
   });
@@ -35,5 +38,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.registerTask('default', ['jshint', 'mochaTest']);
+  grunt.registerTask('default', ['jshint', 'mochaTest:unit']);
+  grunt.registerTask('integration', ['default', 'mochaTest:integration']);
 };
